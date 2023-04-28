@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  explorecalifornia.com:
+   build: 
+  #  build will look for a docker file im the current directory
+    context: .
+   ports:
+    - 80:80
+  unit-tests:
+    build:
+      dockerfile: rspec.dockerfile
+      context: .
+    volumes:
+      - $PWD:/app
+      # This defines a Docker volume that mounts the current working directory ($PWD) to the /app directory
+      #  inside the container.
+      #  This allows the tests to access files and directories in the host system
+    command:
+      - --pattern
+      - /app/spec/unit/*_spec.rb
+    #  This indicates that the tests to be run are 
+    # located in that directory and follow the naming convention of ending with _spec.rb.
